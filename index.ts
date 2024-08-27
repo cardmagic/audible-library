@@ -1,14 +1,26 @@
+/**
+ * Imports required modules and types.
+ */
 import puppeteer from 'puppeteer-extra'
 import StealthPlugin from 'puppeteer-extra-plugin-stealth'
 import { Page } from 'puppeteer'
 
+// Use stealth plugin to avoid detection
 puppeteer.use(StealthPlugin())
 
+/**
+ * Represents a book with title and author.
+ */
 interface Book {
   title: string
   author: string
 }
 
+/**
+ * Logs in to the Audible website.
+ * @param page - The Puppeteer Page object to interact with.
+ * @returns A promise that resolves when login is complete.
+ */
 async function login(page: Page): Promise<void> {
   await page.goto('https://www.audible.com/sign-in');
   await page.waitForFunction(
@@ -18,6 +30,12 @@ async function login(page: Page): Promise<void> {
 }
 
 
+/**
+ * Scrapes a single page of the Audible library.
+ * @param page - The Puppeteer Page object to interact with.
+ * @param pageNum - The page number to scrape.
+ * @returns A promise that resolves to an array of Book objects.
+ */
 async function scrapePage(page: Page, pageNum: number): Promise<Book[]> {
   await page.goto(`https://www.audible.com/library/titles?pageSize=50&page=${pageNum}`, { waitUntil: 'networkidle0' });
 
@@ -36,6 +54,10 @@ async function scrapePage(page: Page, pageNum: number): Promise<Book[]> {
   return books;
 }
 
+/**
+ * Scrapes the entire Audible library.
+ * @returns A promise that resolves to an array of all Book objects in the library.
+ */
 async function scrapeAudibleLibrary(): Promise<Book[]> {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
@@ -64,6 +86,9 @@ async function scrapeAudibleLibrary(): Promise<Book[]> {
   return allBooks;
 }
 
+/**
+ * Main function to execute the Audible library scraping process.
+ */
 async function main() {
   try {
     const books = await scrapeAudibleLibrary();
@@ -74,5 +99,6 @@ async function main() {
   }
 }
 
+// Execute the main function
 main();
 
