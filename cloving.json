@@ -1,0 +1,32 @@
+{
+  "languages": [
+    {
+      "name": "TypeScript",
+      "version": "~4.9.0",
+      "primary": true,
+      "directory": ".",
+      "extension": ".ts"
+    }
+  ],
+  "frameworks": [
+    {
+      "name": "Node.js",
+      "type": "Runtime environment",
+      "primary": true,
+      "directory": ".",
+      "extension": ".ts"
+    }
+  ],
+  "testingFrameworks": [],
+  "buildTools": [
+    {
+      "name": "ts-node",
+      "type": "TypeScript execution and REPL for Node.js",
+      "version": "^10.9.2"
+    }
+  ],
+  "packageManager": "npm",
+  "linters": [],
+  "databases": [],
+  "projectType": "Web scraping and AI-powered application"
+}
